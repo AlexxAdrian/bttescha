@@ -6,67 +6,9 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Gestión de Usuarios</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="styles.css">
+    
 
-    <!-- Bootstrap Primo -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-
-    <style>
-        body {
-            background-color: #343a40;
-            color: #ffffff;
-        }
-        
-        h1 {
-            text-align: center;
-            margin-top: 20px;
-        }
-        
-        table {
-            margin: 20px auto;
-            width: 80%;
-        }
-        
-        .modal-content {
-            background-color: #212529;
-            color: white;
-            border-color: #444;
-        }
-        
-        th,
-        td {
-            border: 1px solid #dee2e6;
-            padding: 12px;
-            text-align: left;
-        }
-        
-        th {
-            background-color: #495057;
-            color: white;
-        }
-        
-        td {
-            background-color: #343a40;
-        }
-        
-        #nick {
-            color: #6c757d;
-        }
-        
-        #closeModal {
-            color: white;
-        }
-        
-        .btn-white {
-            background-color: white;
-            color: black;
-        }
-        
-        .btn-white:hover {
-            background-color: #f8f9fa;
-            color: black;
-        }
-    </style>
 </head>
 
 <body>
@@ -190,7 +132,9 @@
     <form id="lista" action="php/lista.php" method="POST"></form>
 
     <!-- Botón Registrarse personalizado -->
-    <a href="registro.html" class="btn btn-white">Registrarse</a>
+    <div class="register-button-container">
+        <a href="registro.html" class="btn btn-white">Nuevo Usuario</a>
+    </div>
 </body>
 
 </html>

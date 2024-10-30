@@ -59,13 +59,13 @@ if ($con) {
                 echo "<td>" . htmlspecialchars($fila["Password"]) . "</td>";
                 echo "<td>" . $estado . "</td>";
                 echo "<td class='text-center'>";
-                echo "<button class='btn btn-sm btn-primary' onclick=\"showUpdateModal('" . htmlspecialchars($fila["Nick"]) . "', '" . htmlspecialchars($fila["Password"]) . "')\">";
-                echo "<i class='fas fa-edit'></i> Actualizar";
+                echo "<button class='btneditar' onclick=\"showUpdateModal('" . htmlspecialchars($fila["Nick"]) . "', '" . htmlspecialchars($fila["Password"]) . "')\">";
+                echo "<i class='fas fa-edit'></i> Editar";
                 echo "</button> ";
-                echo "<button class='btn btn-sm btn-warning' onclick=\"confirmToggle('" . htmlspecialchars($fila["Nick"]) . "', '" . htmlspecialchars($fila["borrado"]) . "')\">";
+                echo "<button class='btnactive' onclick=\"confirmToggle('" . htmlspecialchars($fila["Nick"]) . "', '" . htmlspecialchars($fila["borrado"]) . "')\">";
                 echo "<i class='fas fa-exchange-alt'></i> Activar / Desactivar";
                 echo "</button> ";
-                echo "<button class='btn btn-sm btn-danger' onclick=\"confirmDelete('" . htmlspecialchars($fila["Nick"]) . "')\">";
+                echo "<button class='btndelete' onclick=\"confirmDelete('" . htmlspecialchars($fila["Nick"]) . "')\">";
                 echo "<i class='fas fa-trash'></i> Eliminar";
                 echo "</button>";
                 echo "</td>";
