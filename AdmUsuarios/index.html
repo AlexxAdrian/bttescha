@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Gestión de Usuarios</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <!-- Bootstrap Primo -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        body {
+            background-color: #343a40;
+            color: #ffffff;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        table {
+            margin: 20px auto;
+            width: 80%;
+        }
+        
+        .modal-content {
+            background-color: #212529;
+            color: white;
+            border-color: #444;
+        }
+        
+        th,
+        td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #495057;
+            color: white;
+        }
+        
+        td {
+            background-color: #343a40;
+        }
+        
+        #nick {
+            color: #6c757d;
+        }
+        
+        #closeModal {
+            color: white;
+        }
+        
+        .btn-white {
+            background-color: white;
+            color: black;
+        }
+        
+        .btn-white:hover {
+            background-color: #f8f9fa;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Admin Usuarios</h1>
+
+    <table class="table table-dark table-hover">
+        <thead>
+            <tr>
+                <th>Nick</th>
+                <th>Password</th>
+                <th>Activo/Inactivo</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody id="userTableBody">
+        </tbody>
+    </table>
+
+    <div id="updateModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" style="cursor:pointer; float:right;">&times;</span>
+            <h2>Actualizar Usuario</h2>
+            <form id="updateForm">
+                <label for="nick">Nick:</label>
+                <input type="text" id="nick" name="nick" readonly class="form-control mb-3">
+                <label for="newNick">Nuevo Nick:</label>
+                <input type="text" id="newNick" name="newNick" class="form-control mb-3">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" class="form-control mb-3">
+                <button type="submit" class="btn btn-primary">Actualizar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            loadUsers();
+        });
+
+        function loadUsers() {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "php/lista.php", true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    document.getElementById('userTableBody').innerHTML = xhr.responseText;
+                } else {
+                    alert("Error al cargar los usuarios");
+                }
+            };
+            xhr.send();
+        }
+
+        function showUpdateModal(nick, password) {
+            document.getElementById("nick").value = nick;
+            document.getElementById("password").value = password;
+            document.getElementById("newNick").value = nick; 
+            document.getElementById("updateModal").style.display = "block";
+        }
+
+        document.getElementById("closeModal").onclick = function() {
+            document.getElementById("updateModal").style.display = "none";
+        };
+
+        document.getElementById('updateForm').onsubmit = function(event) {
+            event.preventDefault();
+            const nick = document.getElementById('nick').value;
+            const password = document.getElementById('password').value;
+            const newNick = document.getElementById('newNick').value; 
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "php/lista.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    alert(xhr.responseText);
+                    document.getElementById('updateModal').style.display = "none";
+                    loadUsers();
+                } else {
+                    alert("Error al actualizar el usuario");
+                }
+            };
+            xhr.send("action=update&Nick=" + encodeURIComponent(nick) + "&Password=" + encodeURIComponent(password) + "&newNick=" + encodeURIComponent(newNick));
+        };
+
+        function confirmToggle(nick, estado) {
+            const confirmAction = confirm("¿Estás seguro de que deseas cambiar el estado de este usuario?");
+            if (confirmAction) {
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "php/lista.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        alert(xhr.responseText);
+                        loadUsers();
+                    } else {
+                        alert("Error al cambiar el estado del usuario");
+                    }
+                };
+                xhr.send("action=toggle&Nick=" + encodeURIComponent(nick) + "&estado=" + encodeURIComponent(estado));
+            }
+        }
+
+        function confirmDelete(nick) {
+            const confirmAction = confirm("¿Estás seguro de que deseas eliminar este usuario?");
+            if (confirmAction) {
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "php/lista.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        alert(xhr.responseText);
+                        loadUsers();
+                    } else {
+                        alert("Error al eliminar el usuario");
+                    }
+                };
+                xhr.send("action=delete&Nick=" + encodeURIComponent(nick));
+            }
+        }
+    </script>
+
+    <form id="lista" action="php/lista.php" method="POST"></form>
+
+    <!-- Botón Registrarse personalizado -->
+    <a href="registro.html" class="btn btn-white">Registrarse</a>
+</body>
+
+</html>

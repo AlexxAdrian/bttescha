@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Registro</title>
+
+    <!-- Incluir Bootstrap -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        body {
+            background-color: #343a40;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        h1 {
+            margin-bottom: 20px;
+        }
+        /* Estilo personalizado para el campo Nick */
+        
+        #nick {
+            color: #6c757d;
+            /* Texto en gris */
+        }
+        /* Botón personalizado para 'Registrar' y 'Regresar' */
+        
+        .btn-custom {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+        
+        .btn-white {
+            background-color: white;
+            color: black;
+        }
+        
+        .btn-white:hover {
+            background-color: #f8f9fa;
+            color: black;
+        }
+        /* Centrar el formulario y los campos */
+        
+        form {
+            display: inline-block;
+            text-align: left;
+        }
+        
+        label,
+        input {
+            display: block;
+            margin: 10px 0;
+            width: 100%;
+        }
+        
+        input {
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Registro de Usuario</h1>
+
+    <form id="formregister" action="php/register.php" method="POST" class="form-group w-50 mx-auto">
+        <label for="nick">Nick</label>
+        <input type="text" id="nick" name="user" class="form-control" required />
+
+        <label for="password">Password</label>
+        <input type="password" name="password" class="form-control" required />
+
+        <button type="submit" class="btn btn-custom">Registrar</button>
+    </form>
+
+    <button onclick="window.location.href='./../index.php'" class="btn btn-white">Regresar</button>
+
+</body>
+
+</html>
